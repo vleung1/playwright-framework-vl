@@ -20,9 +20,9 @@ When you run `npm run test:crdc`:
 
 1. **Playwright** reads `playwright.config.ts` and sees which tests to run and which **project** (e.g. `crdc-home`) to use. The project defines things like which browser and **base URL** (e.g. `https://hub.datacommons.cancer.gov`).
 
-2. For each test file (e.g. `tests/ui/crdc-home.spec.ts`), Playwright runs each `test(...)` in that file. Before each test, it runs **beforeEach** if the suite defines one (e.g. go to the homepage and dismiss the warning dialog).
+2. For each test file (e.g. `tests/ui/crdc-home.spec.ts`), Playwright reads the test suite. Instead of tests manually creating page objects, they rely on **fixtures**. When a test runs, the fixture automatically builds the necessary page object (e.g., `homePage`) and injects it. Before each test, Playwright runs the **beforeEach** hook if the suite defines one (e.g. uses the injected page to go to the homepage and dismiss the warning dialog).
 
-3. The test uses a **page object** (e.g. `HomePage`) from `src/pages/`. The page object knows how to find elements (links, buttons, dialogs) and how to perform actions (navigate, click Continue). The test itself only calls those methods and then **asserts** (e.g. “this heading should be visible”, “the URL should match auth.nih.gov”).
+3. The test uses the injected **page object** (e.g. `homePage`). The page object knows how to find elements (links, buttons, dialogs) and how to perform actions (navigate, click Continue). The test itself only calls those methods and then **asserts** (e.g. “this heading should be visible”, “the URL should match auth.nih.gov”).
 
 4. **Configuration** (timeouts, base URL) comes from `config/` and from environment variables, not from numbers or URLs written inside the test.
 
@@ -75,7 +75,7 @@ All timeouts are defined in one file so we never scatter “magic numbers” (e.
 
 ### 4.2 Environments (`config/env/`)
 
-Different environments can use different **base URLs** and settings. Each environment has a small file in `config/env/` that exports a config object (at least `baseURL` and `envName`). The loader in `config/env/index.ts` uses `TEST_ENV` (or a default) to decide which file to load. Available profiles include:
+Different environments have different **base URLs**. The file `config/env/urls.ts` acts as the single source of truth, mapping `TEST_ENV` strings to URL strings. The resolver uses the `TEST_ENV` variable (or a default) to instantly return the correct URL for the Playwright Config to use. Available profiles include:
 
 - **prod** — CRDC hub production: `https://hub.datacommons.cancer.gov` (default).
 - **qa** — CRDC hub QA: `https://hub-qa.datacommons.cancer.gov`.
@@ -199,14 +199,15 @@ More detail: see **docs/RUNNING-TESTS.md**.
 
 1. Open the spec file (e.g. `tests/ui/crdc-home.spec.ts`).
 2. Add a short comment above the test describing what it verifies.
-3. Add a `test('should ...', async ({ page }) => { ... })` that uses the existing page object (e.g. `HomePage`) to perform actions and `expect(...)` to assert. Reuse existing getters/methods where possible; if you need a new element, add a locator and optionally a getter in the page object first.
+3. Add a `test('should ...', async ({ homePage }) => { ... })` that uses the injected page object (`homePage`) to perform actions and `expect(...)` to assert. Reuse existing getters/methods where possible; if you need a new element, add a locator and optionally a getter in the page object first.
 
 **Adding a new page (e.g. Login page):**
 
 1. Create a new class in `src/pages/` that extends `BasePage` (e.g. `login.page.ts` with `LoginPage`).
 2. Define locators (private/readonly) at the top, using `getByRole`, `getByTestId`, or `getByText` as appropriate.
 3. Add methods for actions (e.g. `enterEmail`, `clickSubmit`) and getters for elements the test will assert on. No `expect` inside the page object.
-4. In the spec, import the new page class, instantiate it with `page`, and call its methods and getters from your tests.
+4. Update `src/fixtures/test.fixture.ts` to add your new `loginPage` to the `Fixtures` type and `extend` block.
+5. In the spec, just destructure your new fixture: `async ({ loginPage }) => { ... }` and call its methods and getters.
 
 **Adding a new suite (e.g. a new feature area):**
 
