@@ -1,6 +1,6 @@
 /**
  * CRDC Submission Portal homepage tests.
- * Run: npm run test:crdc (or npx playwright test --project=crdc-home).
+ * Run: npm run test:crdc (or npx playwright test --project=crdc-homepage).
  * Base URL comes from TEST_ENV (prod | qa | stage | qa2) or BASE_URL override.
  * Uses HomePage page object via fixture injection; assertions in tests only.
  * beforeEach navigates to the hub and dismisses the system use warning dialog

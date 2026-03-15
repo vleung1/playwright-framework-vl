@@ -50,7 +50,7 @@ To run the homepage tests against the CRDC Submission Portal:
 npm run test:crdc
 ```
 
-This uses the `crdc-home` project, which sets `baseURL` to `https://hub.datacommons.cancer.gov` and runs only `tests/ui/crdc-home.spec.ts`. By default tests run **headless**. To watch the browser:
+This uses the `crdc-homepage` project, which sets `baseURL` to `https://hub.datacommons.cancer.gov` and runs only `tests/ui/crdc-homepage.spec.ts`. By default tests run **headless**. To watch the browser:
 
 ```bash
 npm run test:crdc:headed
@@ -59,11 +59,11 @@ npm run test:crdc:headed
 Alternatively:
 
 ```bash
-npx playwright test --project=crdc-home
-npx playwright test --project=crdc-home --headed
+npx playwright test --project=crdc-homepage
+npx playwright test --project=crdc-homepage --headed
 ```
 
-Or run with a custom base URL: `BASE_URL=https://hub.datacommons.cancer.gov npx playwright test tests/ui/crdc-home.spec.ts`
+Or run with a custom base URL: `BASE_URL=https://hub.datacommons.cancer.gov npx playwright test tests/ui/crdc-homepage.spec.ts`
 
 ## Run by project (browser)
 

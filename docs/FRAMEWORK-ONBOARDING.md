@@ -18,9 +18,9 @@ When you run a test, Playwright starts a browser, navigates to the app, performs
 
 When you run `npm run test:crdc`:
 
-1. **Playwright** reads `playwright.config.ts` and sees which tests to run and which **project** (e.g. `crdc-home`) to use. The project defines things like which browser and **base URL** (e.g. `https://hub.datacommons.cancer.gov`).
+1. **Playwright** reads `playwright.config.ts` and sees which tests to run and which **project** (e.g. `crdc-homepage`) to use. The project defines things like which browser and **base URL** (e.g. `https://hub.datacommons.cancer.gov`).
 
-2. For each test file (e.g. `tests/ui/crdc-home.spec.ts`), Playwright reads the test suite. Instead of tests manually creating page objects, they rely on **fixtures**. When a test runs, the fixture automatically builds the necessary page object (e.g., `homePage`) and injects it. Before each test, Playwright runs the **beforeEach** hook if the suite defines one (e.g. uses the injected page to go to the homepage and dismiss the warning dialog).
+2. For each test file (e.g. `tests/ui/crdc-homepage.spec.ts`), Playwright reads the test suite. Instead of tests manually creating page objects, they rely on **fixtures**. When a test runs, the fixture automatically builds the necessary page object (e.g., `homePage`) and injects it. Before each test, Playwright runs the **beforeEach** hook if the suite defines one (e.g. uses the injected page to go to the homepage and dismiss the warning dialog).
 
 3. The test uses the injected **page object** (e.g. `homePage`). The page object knows how to find elements (links, buttons, dialogs) and how to perform actions (navigate, click Continue). The test itself only calls those methods and then **asserts** (e.g. “this heading should be visible”, “the URL should match auth.nih.gov”).
 
@@ -42,7 +42,7 @@ playwright-framework-vl/
 │   ├── fixtures/    # Shared test setup (e.g. custom fixtures)
 │   └── utils/       # Helpers (logging, etc.)
 ├── tests/
-│   ├── ui/          # UI test specs by feature (e.g. crdc-home.spec.ts)
+│   ├── ui/          # UI test specs by feature (e.g. crdc-homepage.spec.ts)
 │   ├── smoke/       # Short critical-path suite for quick checks
 │   └── integration/ # Cross-feature or E2E flows
 ├── scripts/         # Shell scripts for CI (e.g. run smoke only)
@@ -89,7 +89,7 @@ Tests don’t branch on “if staging do X”; they just use the injected base U
 A **project** is a named configuration: which browser, which base URL, which test files, and optionally a custom timeout. For example:
 
 - **chromium / firefox / webkit:** Default projects that run all tests with the default base URL (from `process.env.BASE_URL` or a fallback).
-- **crdc-home:** Uses Chrome and a fixed base URL for the CRDC hub, and only runs tests matching `crdc-home.spec.ts`. It also sets a longer test timeout so heavy pages have time to load.
+- **crdc-homepage:** Uses Chrome and a fixed base URL for the CRDC hub, and only runs tests matching `crdc-homepage.spec.ts`. It also sets a longer test timeout so heavy pages have time to load.
 
 So when you run `npm run test:crdc`, you’re running the `crdc-home` project: same tests, but with the CRDC base URL and timeout applied.
 
@@ -184,7 +184,7 @@ One test (“should show system use warning dialog before continuing”) needs t
 Environment variables that matter:
 
 - `BASE_URL` — overrides the base URL used by the default Playwright project.
-- `TEST_ENV` — selects which env config to load (local, dev, staging, crdc).
+- `TEST_ENV` — selects which env config to load (`prod`, `qa`, `stage`, `qa2`).
 - `CI` — when set (e.g. in CI), Playwright can enable retries and use fewer workers.
 
 Copy `.env.example` to `.env` and set values as needed; don’t commit `.env`.
@@ -197,7 +197,7 @@ More detail: see **docs/RUNNING-TESTS.md**.
 
 **Adding a new test to an existing suite (e.g. CRDC homepage):**
 
-1. Open the spec file (e.g. `tests/ui/crdc-home.spec.ts`).
+1. Open the spec file (e.g. `tests/ui/crdc-homepage.spec.ts`).
 2. Add a short comment above the test describing what it verifies.
 3. Add a `test('should ...', async ({ homePage }) => { ... })` that uses the injected page object (`homePage`) to perform actions and `expect(...)` to assert. Reuse existing getters/methods where possible; if you need a new element, add a locator and optionally a getter in the page object first.
 
@@ -213,7 +213,7 @@ More detail: see **docs/RUNNING-TESTS.md**.
 
 1. Add a new spec file under `tests/ui/` (e.g. `login.spec.ts`).
 2. Use `test.describe` and, if needed, `beforeEach` to set up a shared state (e.g. navigate to login page).
-3. If the app has multiple environments, you can add a new project in `playwright.config.ts` (like `crdc-home`) that sets `baseURL` and `testMatch` for that suite.
+3. If the app has multiple environments, you can add a new project in `playwright.config.ts` (like `crdc-homepage`) that sets `baseURL` and `testMatch` for that suite.
 
 ---
 

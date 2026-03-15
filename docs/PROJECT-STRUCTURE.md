@@ -30,7 +30,7 @@ crdc-dh-automation-pw/
 │   └── hooks/                              # Global setup/teardown
 ├── tests/
 │   ├── ui/                                 # UI tests by feature
-│   │   └── crdc-home.spec.ts               # CRDC Hub homepage tests
+│   │   └── crdc-homepage.spec.ts           # CRDC Hub homepage tests
 │   ├── smoke/                              # Critical path smoke tests
 │   │   └── smoke.spec.ts                   # Health check suite
 │   └── integration/                        # Cross-layer / E2E

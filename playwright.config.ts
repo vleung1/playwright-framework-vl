@@ -27,12 +27,12 @@ export default defineConfig({
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
     {
-      name: 'crdc-home',
+      name: 'crdc-homepage',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: getCrdcBaseURL(),
       },
-      testMatch: /crdc-home\.spec\.ts/,
+      testMatch: /crdc-homepage\.spec\.ts/,
       timeout: 60_000,
     },
   ],

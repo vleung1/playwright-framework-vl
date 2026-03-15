@@ -48,9 +48,9 @@ npm run typecheck
 The framework includes a proof-of-concept suite for the [CRDC Submission Portal](https://hub.datacommons.cancer.gov/) homepage:
 
 - **Page object:** `src/pages/home.page.ts` — header, main content, footer, system use warning dialog
-- **Tests:** `tests/ui/crdc-home.spec.ts` — title, heading, nav links, footer, warning dialog, login navigation
+- **Tests:** `tests/ui/crdc-homepage.spec.ts` — title, heading, nav links, footer, warning dialog, login navigation
 
-Run with: `npm run test:crdc` (uses project `crdc-home` with baseURL `https://hub.datacommons.cancer.gov`). Ensure Playwright browsers are installed: `npx playwright install`.
+Run with: `npm run test:crdc` (uses project `crdc-homepage` with baseURL `https://hub.datacommons.cancer.gov`). Ensure Playwright browsers are installed: `npx playwright install`.
 
 ## Configuration
 
