@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { ELEMENT_TIMEOUT, NAVIGATION_TIMEOUT } from './config/constants';
 import { getCrdcBaseURL } from './config/env/urls';
 
-const baseURL = process.env.BASE_URL ?? 'https://playwright.dev';
+const baseURL = getCrdcBaseURL();
 
 export default defineConfig({
   testDir: './tests',
