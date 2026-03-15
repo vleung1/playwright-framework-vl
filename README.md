@@ -65,6 +65,12 @@ The project includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that
 2. **Smoke Tests** — on every push and PR
 3. **CRDC Regression** — on push to `main` or manual dispatch
 
+## Documentation
+
+- **docs/FRAMEWORK-ONBOARDING.md** — End-to-end guide for new team members.
+- **docs/RUNNING-TESTS.md** — How to run tests, env vars, reports.
+- **docs/MULTI-PROJECT-EXTENSIBILITY-PLAN.md** — Plan for multi-project, multi-environment support (one repo, many apps).
+
 ## License
 
 Private. All rights reserved.

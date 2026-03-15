@@ -80,6 +80,28 @@ npx playwright test tests/smoke/smoke.spec.ts
 npx playwright test -g "should load application"
 ```
 
+## Run by tag (grep)
+
+Tests can be tagged with a details object, e.g. `{ tag: ['@regression', '@CRDCDH-1234'] }`. Tags must start with `@`. Use `--grep` to run only tests whose title or tags match, or `--grep-invert` to exclude:
+
+```bash
+# Run only tests tagged @regression
+npx playwright test --grep @regression
+
+# Run only tests for a specific Jira ticket
+npx playwright test --grep @CRDCDH-1234
+
+# Run CRDC project but only @smoke-tagged tests
+npx playwright test --project=crdc-homepage --grep @smoke
+
+# Exclude tests tagged @slow
+npx playwright test --grep-invert @slow
+```
+
+## Smoke tests
+
+`npm run test:smoke` runs the suite in `tests/smoke/`. Those tests use the **default project** and thus the **default baseURL** from config (from `getCrdcBaseURL()`, i.e. the CRDC hub for the current `TEST_ENV`). When the framework supports multiple projects, smoke still runs against whatever is the default baseURL unless you run a specific project; document any project-specific smoke in the multi-project plan.
+
 ## Viewing results
 
 - **HTML report**: After a run, `npm run report` opens the last report (or `npx playwright show-report`). Use it to inspect failures, traces, and screenshots.

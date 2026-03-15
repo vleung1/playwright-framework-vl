@@ -19,8 +19,9 @@ test.describe('CRDC Hub Homepage', () => {
 
   /**
    * Asserts the document title is "CRDC Submission Portal".
+   * Tags: use -g / --grep to run (e.g. npx playwright test --grep @regression or --grep @CRDCDH-1234).
    */
-  test('should display correct page title', async ({ page }) => {
+  test('Test - Should display correct page title', { tag: ['@CRDCDH-1234', '@regression'] }, async ({ page }) => {
     await expect(page).toHaveTitle('CRDC Submission Portal');
   });
 
@@ -28,7 +29,7 @@ test.describe('CRDC Hub Homepage', () => {
    * Asserts the main H1 "Login to CRDC Submission Portal", the Login.gov
    * prompt text, and the "Log In" link are visible.
    */
-  test('should display main heading and login prompt', async ({
+  test('Test - Should display main heading and login prompt', { tag: ['@CRDCDH-1235', '@regression', '@smoke'] }, async ({
     page,
     homePage,
   }) => {

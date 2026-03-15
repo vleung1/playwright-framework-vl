@@ -229,5 +229,6 @@ More detail: see **docs/RUNNING-TESTS.md**.
 - **docs/PROJECT-STRUCTURE.md** — Folder tree and responsibility of each directory.
 - **docs/CONVENTIONS.md** — Naming, POM rules, locator strategy, waits, test data.
 - **docs/RUNNING-TESTS.md** — Commands, environment variables, reports, CRDC POC.
+- **docs/MULTI-PROJECT-EXTENSIBILITY-PLAN.md** — Plan for supporting multiple projects and environments in one repo (future work).
 
 The **.cursor/rules/sdet-framework-standards.md** file (if present) describes the SDET standards and principles that guided this design; it’s useful for understanding the “why” behind the rules in CONVENTIONS and this guide.
