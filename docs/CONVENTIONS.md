@@ -52,7 +52,7 @@ Naming, POM rules, locator strategy, and where test data and secrets live.
 ## Tagging and traceability
 
 - Use `test.describe` block names to group tests by feature area.
-- Use `test` annotations or naming conventions to indicate test priority (smoke, regression).
+- Tag tests with the `tag` option (tags must start with `@`), e.g. `test('title', { tag: ['@regression', '@CRDCDH-1234'] }, async ({ page }) => { ... })`. Run by tag with `npx playwright test --grep @regression` or `--grep @CRDCDH-1234`; use `--grep-invert` to exclude tags.
 - When possible, include a requirement or story reference in the test description comment.
 - Smoke tests go in `tests/smoke/`; feature tests in `tests/ui/`; end-to-end flows in `tests/integration/`.
 
