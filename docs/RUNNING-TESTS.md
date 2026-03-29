@@ -25,7 +25,7 @@ Both respect `TEST_ENV` and forward extra args to `playwright test`.
 
 | Variable | Purpose |
 |----------|---------|
-| `TEST_ENV` | CRDC hub profile: `prod`, `qa`, `stage`, `qa2`. Default: `prod`. |
+| `TEST_ENV` | CRDC hub profile: `prod`, `qa`, `stage`, `qa2`. Default: **`qa`** (when unset; see `config/constants.ts`). |
 | `BASE_URL` | Override the hub URL. If set, it is used instead of the `TEST_ENV` default. |
 | `LOG_LEVEL` | Optional: `debug`, `info`, `warn`, `error`. Default: `info`. |
 | `CI` | Set by most CI systems; enables retries and reduces workers. |
