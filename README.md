@@ -22,7 +22,7 @@ npm test
 # Run smoke suite only
 npm run test:smoke
 
-# Run CRDC Submission Portal homepage POC (hub.datacommons.cancer.gov)
+# Run CRDC Submission Portal homepage POC (base URL from TEST_ENV; default qa hub)
 npm run test:crdc
 
 # Run with UI mode
@@ -50,11 +50,11 @@ The framework includes a proof-of-concept suite for the [CRDC Submission Portal]
 - **Page object:** `src/pages/home.page.ts` — header, main content, footer, system use warning dialog
 - **Tests:** `tests/ui/crdc-homepage.spec.ts` — title, heading, nav links, footer, warning dialog, login navigation
 
-Run with: `npm run test:crdc` (uses project `crdc-homepage` with baseURL `https://hub.datacommons.cancer.gov`). Ensure Playwright browsers are installed: `npx playwright install`.
+Run with: `npm run test:crdc` (uses project `crdc-homepage`; base URL from `getCrdcBaseURL()` — **qa** by default, or set `TEST_ENV` / `BASE_URL`). Ensure Playwright browsers are installed: `npx playwright install`.
 
 ## Configuration
 
-- Copy `.env.example` to `.env` and set `TEST_ENV` and `BASE_URL` as needed.
+- Copy `.env.example` to `.env` if you want overrides; without `.env`, **`TEST_ENV` defaults to `qa`** (see `config/constants.ts`). Set `TEST_ENV=prod` only when you intend to hit production.
 - Timeouts and constants live in `config/constants.ts`; environment URL resolution in `config/env/urls.ts`.
 
 ## CI/CD

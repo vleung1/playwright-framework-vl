@@ -77,8 +77,8 @@ All timeouts are defined in one file so we never scatter “magic numbers” (e.
 
 Different environments have different **base URLs**. The file `config/env/urls.ts` acts as the single source of truth, mapping `TEST_ENV` strings to URL strings. The resolver uses the `TEST_ENV` variable (or a default) to instantly return the correct URL for the Playwright Config to use. Available profiles include:
 
-- **prod** — CRDC hub production: `https://hub.datacommons.cancer.gov` (default).
-- **qa** — CRDC hub QA: `https://hub-qa.datacommons.cancer.gov`.
+- **prod** — CRDC hub production: `https://hub.datacommons.cancer.gov` (set `TEST_ENV=prod` explicitly when you need it).
+- **qa** — CRDC hub QA: `https://hub-qa.datacommons.cancer.gov` (**default** when `TEST_ENV` is unset — avoids accidental production traffic).
 - **stage** — CRDC hub stage: `https://hub-stage.datacommons.cancer.gov`.
 - **qa2** — CRDC hub QA2: `https://hub-qa2.datacommons.cancer.gov`.
 
@@ -88,10 +88,10 @@ Tests don’t branch on “if staging do X”; they just use the injected base U
 
 A **project** is a named configuration: which browser, which base URL, which test files, and optionally a custom timeout. For example:
 
-- **chromium / firefox / webkit:** Default projects that run all tests with the default base URL (from `process.env.BASE_URL` or a fallback).
-- **crdc-homepage:** Uses Chrome and a fixed base URL for the CRDC hub, and only runs tests matching `crdc-homepage.spec.ts`. It also sets a longer test timeout so heavy pages have time to load.
+- **chromium / firefox / webkit:** Cross-browser projects; they **ignore** `crdc-homepage.spec.ts` so that suite is not run four times. They run the rest of `tests/` (e.g. smoke) against the resolved base URL.
+- **crdc-homepage:** Chrome only, runs only `crdc-homepage.spec.ts`, with a longer test timeout for the hub homepage.
 
-So when you run `npm run test:crdc`, you’re running the `crdc-home` project: same tests, but with the CRDC base URL and timeout applied.
+So when you run `npm run test:crdc`, you’re running the **`crdc-homepage`** project: those homepage tests with the CRDC base URL and timeout applied.
 
 ---
 

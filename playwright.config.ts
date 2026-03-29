@@ -23,9 +23,24 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    // Cross-browser projects: run everything under tests/ *except* the CRDC hub suite.
+    // That suite is owned by `crdc-homepage` below (Chrome + longer timeout) so we do not
+    // execute the same SSO / modal flows four times or hit flakiness on Firefox/WebKit.
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testIgnore: /crdc-homepage\.spec\.ts/,
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+      testIgnore: /crdc-homepage\.spec\.ts/,
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+      testIgnore: /crdc-homepage\.spec\.ts/,
+    },
     {
       name: 'crdc-homepage',
       use: {

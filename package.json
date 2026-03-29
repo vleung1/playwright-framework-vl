@@ -1,7 +1,7 @@
 {
-  "name": "playwright-framework-vl",
+  "name": "crdc-dh-automation-pw",
   "version": "1.0.0",
-  "description": "State-of-the-art UI test automation framework using Playwright and TypeScript",
+  "description": "Playwright E2E tests for the CRDC Data Hub (Submission Portal) — smoke and UI suites with configurable hub URLs (qa, stage, prod, etc.)",
   "private": true,
   "scripts": {
     "test": "playwright test",

@@ -11,11 +11,12 @@ on:
       test_env:
         description: 'Target environment (prod, qa, stage, qa2)'
         required: false
-        default: 'prod'
+        default: 'qa'
 
 env:
   NODE_VERSION: '20'
-  TEST_ENV: ${{ github.event.inputs.test_env || 'prod' }}
+  # Push/PR: qa (matches config/constants.ts). Manual workflow_dispatch: uses selected input.
+  TEST_ENV: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.test_env) || 'qa' }}
 
 jobs:
   lint-and-typecheck:
